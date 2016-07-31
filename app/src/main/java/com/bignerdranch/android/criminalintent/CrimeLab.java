@@ -3,6 +3,7 @@ package com.bignerdranch.android.criminalintent;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -24,6 +25,7 @@ public class CrimeLab {
             newCrime.setSolved(i % 2 == 0);
             mCrimes.add(newCrime);
         }
+        mCrimes.get(0).setDate(new Date(10, 10, 10));
     }
 
     public static CrimeLab get(Context c) {

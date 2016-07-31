@@ -23,7 +23,7 @@ public class Crime {
     }
 
     public void setDate(Date date) {
-        mDate = date;
+        mDate = new FormattedDate(date);
     }
 
     public boolean isSolved() {
@@ -53,6 +53,6 @@ public class Crime {
 
     public Crime() {
         mId = UUID.randomUUID();
-        mDate = new Date();
+        mDate = new FormattedDate();
     }
 }
