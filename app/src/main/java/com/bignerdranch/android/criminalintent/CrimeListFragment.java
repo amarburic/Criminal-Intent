@@ -61,7 +61,7 @@ public class CrimeListFragment extends ListFragment {
                         .getLayoutInflater()
                         .inflate(R.layout.list_item_crime, null);
 
-            Crime currentCrime = (Crime)getItem(position);
+            Crime currentCrime = getItem(position);
             CheckBox cb = (CheckBox)convertView.findViewById(R.id.crime_list_item_solvedChekbox);
             cb.setChecked(currentCrime.isSolved());
 

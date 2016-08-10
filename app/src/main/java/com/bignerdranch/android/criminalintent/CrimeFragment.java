@@ -28,7 +28,9 @@ public class CrimeFragment extends Fragment {
     public static final String EXTRA_CRIME_ID =
             "com.bignerdranch.android.criminalintent.crime_id";
     public static final String DIALOG_DATE = "date";
+    public static final String DIALOG_CHOICE = "choice";
     public static final int REQUEST_CODE = 0;
+    public static final int REQUEST_CODE_CHOICE = 1;
     public static final String TAG = "CrimeFragment";
 
     private Crime mCrime;
@@ -66,10 +68,19 @@ public class CrimeFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode != Activity.RESULT_OK) return;
         if(requestCode == REQUEST_CODE) {
-            Date date = (Date)data.getSerializableExtra(DataPickerFragment.EXTRA_DATE);
+            Date date = (Date)data.getSerializableExtra(PickerFragment.EXTRA_DATE);
 
             mCrime.setDate(date);
             updateDate();
+        }
+        if(requestCode == REQUEST_CODE_CHOICE) {
+            int type = data.getIntExtra(ChoiceFragment.EXTRA_CHOICE, PickerFragment.TYPE_DATE);
+
+            FragmentManager fm = getActivity().getSupportFragmentManager();
+            PickerFragment picker = PickerFragment
+                    .newInstance(mCrime.getDate(), type);
+            picker.setTargetFragment(CrimeFragment.this, REQUEST_CODE);
+            picker.show(fm, DIALOG_DATE);
         }
 
     }
@@ -104,10 +115,9 @@ public class CrimeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
-                DataPickerFragment dataPicker = DataPickerFragment
-                        .newInstance(mCrime.getDate());
-                dataPicker.setTargetFragment(CrimeFragment.this, REQUEST_CODE);
-                dataPicker.show(fm, DIALOG_DATE);
+                ChoiceFragment choice = new ChoiceFragment();
+                choice.setTargetFragment(CrimeFragment.this, REQUEST_CODE_CHOICE);
+                choice.show(fm, DIALOG_CHOICE);
             }
         });
 

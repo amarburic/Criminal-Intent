@@ -18,6 +18,6 @@ public class FormattedDate extends Date {
 
     @Override
     public String toString() {
-        return DateFormat.format("EEEE, MMM dd, yyyy", this).toString();
+        return DateFormat.format("EEE, dd. MMM ''yy. 'at' HH:mm", this).toString();
     }
 }
